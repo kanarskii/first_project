@@ -1,13 +1,11 @@
 package model.impl;
 
-import model.Model;
-
 /**
  * Класс автобус со свойствами <b>number</b>, <b>model</b> и <b>mileage</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Bus implements Model {
+public class Bus {
     /** Поле номер*/
     private final String number;
     /** Поле модель*/

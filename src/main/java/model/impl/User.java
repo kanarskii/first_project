@@ -1,13 +1,11 @@
 package model.impl;
 
-import model.Model;
-
 /**
  * Класс поьзователь со свойствами <b>name</b>, <b>pass</b> и <b>email</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class User implements Model {
+public class User extends Model {
     /** Поле имя*/
     private final String name;
     /** Поле пароль*/
@@ -44,6 +42,12 @@ public class User implements Model {
                 '}';
     }
 
+    @Override
+    public int compareTo(Model o) {
+        System.out.println(this.name +  "     " + ((User) o).getName());
+        return this.name.compareTo(((User) o).getName());
+    }
+
     /**
      * Создание объекта User по паттерну Builder
      * @see User
@@ -52,6 +56,7 @@ public class User implements Model {
     public static UserBuilder builder (){
         return new UserBuilder();
     }
+
 
     public static class UserBuilder{
         private String name;

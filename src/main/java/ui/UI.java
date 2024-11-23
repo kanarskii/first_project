@@ -1,6 +1,6 @@
 package ui;
 
-import model.Model;
+import model.impl.Model;
 
 import java.util.List;
 
