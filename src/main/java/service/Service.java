@@ -9,5 +9,5 @@ public interface Service {
 
     List<Model> loadModels(StrategyType strategy);
 
-    List<Model> searchModel(String str);
+    Model searchModel(String str);
 }
