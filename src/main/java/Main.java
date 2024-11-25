@@ -1,10 +1,13 @@
-import model.impl.Bus;
-import model.impl.Student;
-import model.impl.User;
 import ui.UI;
 import ui.UI_impl;
 
 import java.util.Scanner;
+
+/**
+ * Командный тестовый проект
+ * @autor Евгений Канарский, Виктор Дробышевский, Илья Баренков, Игорь Абзалов, Игорь Кашолкин
+ * @version 0.2
+ */
 
 public class Main {
     public static void main(String[] args) {

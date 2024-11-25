@@ -3,10 +3,15 @@ package ui;
 import mobelLoadStrategy.StrategyType;
 import service.ServiceImpl;
 import java.util.Scanner;
+/**
+ * Класс реализация пользовательского интерфейса.
+ * @autor Виктор Дробышевский
+ * @version 0.8
+ */
 
 public class UI_impl implements UI{
-    ServiceImpl service = new ServiceImpl();
-    Scanner in = new Scanner(System.in);
+    private final ServiceImpl service = new ServiceImpl();
+    private final Scanner in = new Scanner(System.in);
 
     @Override
     public void load() {
@@ -34,6 +39,7 @@ public class UI_impl implements UI{
 
     @Override
     public void search() {
+        System.out.println("Поиск элемента в загруженной коллекции");
         String  searchModel = in.next();
         service.searchModel(searchModel);
 
@@ -42,6 +48,9 @@ public class UI_impl implements UI{
     @Override
     public void help() {
         System.out.println("1\tДля загрузки элементов");
+        System.out.println("\t1\tЗагрузка из файла");
+        System.out.println("\t2\tзагрузка из консоли");
+        System.out.println("\t3\tЗаполнение N случайными элементами");
         System.out.println("2\tДля просмотра загруженной коллекции");
         System.out.println("3\tДля поиска элемента");
         System.out.println("4\tПомощь");
