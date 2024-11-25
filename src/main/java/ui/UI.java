@@ -31,4 +31,6 @@ public interface UI {
      * закрытие ресурсов испоьзуемых классом
      */
     void close();
+
+    void runner();
 }

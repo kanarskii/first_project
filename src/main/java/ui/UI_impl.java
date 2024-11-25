@@ -14,6 +14,47 @@ public class UI_impl implements UI{
     private final Scanner in = new Scanner(System.in);
 
     @Override
+    public void runner() {
+        String operations = "";
+
+        boolean work = true;
+        System.out.println("Добро пожаловать.");
+        help();
+
+        while (work) {
+            operations = in.next();
+            if (operations.trim().matches("\\d")) {
+                int op = Integer.parseInt(operations);
+                switch (op) {
+                    case 1:
+                        load();
+                        break;
+                    case 2:
+                        look();
+                        break;
+                    case 3:
+                        search();
+                        break;
+                    case 4:
+                        help();
+                        break;
+                    case 5:
+                        work = false;
+                        break;
+                    default:
+                        System.out.println("Выбран несуществующий пункт меню, попробуйте обратиться в раздел помощи. 4 для отображения доступных операций.");
+                }
+            } else
+                System.out.println("Введена неподдерживаемая команда попробуйте обратиться в раздел помощи. 4 для отображения доступных операций.");
+        }
+    }
+
+    @Override
+    public void close() {
+        in.close();
+    }
+
+    @Override
     public void load() {
         System.out.println("Процесс загрузки элементов");
         String operations = "";
@@ -63,10 +104,5 @@ public class UI_impl implements UI{
             service.getModelList().forEach(System.out::println);
         } else
             System.out.println("Элементы отсутствуют, возврат в главное меню");
-    }
-
-    @Override
-    public void close() {
-        in.close();
     }
 }

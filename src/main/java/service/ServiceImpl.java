@@ -35,6 +35,7 @@ public class ServiceImpl implements Service {
 
     @Override
     public List<Model> searchModel(String str) {
+
         return List.of();
     }
 }
