@@ -10,4 +10,6 @@ public interface Service {
     List<Model> loadModels(StrategyType strategy);
 
     List<Model> searchModel(String str);
+
+    boolean isEmpty();
 }

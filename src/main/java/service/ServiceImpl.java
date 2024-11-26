@@ -38,4 +38,9 @@ public class ServiceImpl implements Service {
 
         return List.of();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return modelList.isEmpty();
+    }
 }

@@ -1,7 +1,10 @@
 package ui;
 
 import mobelLoadStrategy.StrategyType;
+import model.Model;
 import service.ServiceImpl;
+
+import java.util.List;
 import java.util.Scanner;
 /**
  * Класс реализация пользовательского интерфейса.
@@ -15,7 +18,7 @@ public class UI_impl implements UI{
 
     @Override
     public void runner() {
-        String operations = "";
+        String operations;
 
         boolean work = true;
         System.out.println("Добро пожаловать.");
@@ -57,7 +60,7 @@ public class UI_impl implements UI{
     @Override
     public void load() {
         System.out.println("Процесс загрузки элементов");
-        String operations = "";
+        String operations;
 
         System.out.println("1\tЗагрузка из файла");
         System.out.println("2\tзагрузка из консоли");
@@ -80,10 +83,47 @@ public class UI_impl implements UI{
 
     @Override
     public void search() {
-        System.out.println("Поиск элемента в загруженной коллекции");
-        String  searchModel = in.next();
-        service.searchModel(searchModel);
+        if (!service.isEmpty()) {
+            String operations;
+            String  searchModel = "";
+            System.out.println("Поиск элемента в загруженной коллекции");
+            System.out.println("1\tАвтобус");
+            System.out.println("2\tПользователь");
+            System.out.println("3\tСтудент");
+            operations = in.next();
+            operations.trim().matches("\\d");
 
+            switch (operations) {
+                case "1" : {
+                    System.out.println("Для поиска автобуса необходимо указать его номер в соответствии с форматом:");
+                    System.out.println("формат согласно валидации");
+                    searchModel = in.next();
+                    // валидация
+                    //if (notValid) System.out.println("Введенное значение не соответствует формату");
+                    break;
+                }
+                case "2" : {
+                    System.out.println("Для поиска пользователя необходимо указать его имя в соответствии с форматом:");
+                    System.out.println("формат согласно валидации");
+                    searchModel = in.next();
+                    // валидация
+                    break;
+                }
+
+                case "3" : {
+                    System.out.println("Для поиска студента необходимо указать его номер зачетной книжки в соответствии с форматом:");
+                    System.out.println("формат согласно валидации");
+                    searchModel = in.next();
+                    // валидация
+                    break;
+                }
+            }
+
+            List<Model> search = service.searchModel(searchModel);
+
+            if (!search.isEmpty()) {search.forEach(System.out::println);}
+            else System.out.println("Искомый элемент не найден");
+        } else System.out.println("В программе отсутствуют значения, поиск невозможен. Сначала загрузите элементы.");
     }
 
     @Override
@@ -100,7 +140,7 @@ public class UI_impl implements UI{
 
     @Override
     public void look() {
-        if (!service.getModelList().isEmpty()){
+        if (!service.isEmpty()){
             service.getModelList().forEach(System.out::println);
         } else
             System.out.println("Элементы отсутствуют, возврат в главное меню");
