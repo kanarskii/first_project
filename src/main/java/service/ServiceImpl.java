@@ -32,6 +32,12 @@ public class ServiceImpl implements Service {
 
         load.load(type).forEach(System.out::println);
 
+        // тут должна быть валидация которая обрабатывает List<String> и возвращает List<Model>
+        // валидация применяется вне зависимости от того какой стратегией мы воспользовались
+        // по хорошему в валидации должен быть метод isExp возвращающий список не валидных значений
+
+
+        // а тут сортировка
 
         return modelList;
     }

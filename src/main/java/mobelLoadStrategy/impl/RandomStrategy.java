@@ -9,35 +9,36 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RandomStrategy implements LoadStrategy {
-    private final Scanner in = new Scanner(System.in);
     private final Random r = new Random();
     private final List<String> loadString = new ArrayList<>();
 
 
     @Override
     public List<String> load(ModelType type) {
-
-        System.out.println("N ");
-        int iteration = in.nextInt();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Введите число N элементов (в случае некорректного значения, коллекция будет заполнена случайным количеством элементов)");
+        String count = in.next();
+        int iteration;
+        if (count.trim().matches("\\d+")) {
+            iteration = Integer.getInteger(count);
+        } else {
+            iteration = r.nextInt(5000);
+            System.out.println("Введено некорректное значение,  коллекция будет одержать " + iteration + " элементов");
+        }
 
         switch (type){
             case USER -> {
                 for (int i = 1; i<=iteration; i++ )
-                {
                     loadString.add(randomString() + " " +randomString() + " " + randomString());
-                }
             }
             case STUDENT -> {
                 for (int i = 1; i<=iteration; i++ )
-                {
                     loadString.add(randomString() + " " + randomDouble() + " " + randomInteger());
-                }
+
             }
             case BUS -> {
-                for (int i = 1; i<=iteration; i++ )
-                {
+                for (int i = 1; i <= iteration; i++)
                     loadString.add(randomString() + " " + randomString() + " " + randomInteger());
-                }
             }
         }
         return loadString;
