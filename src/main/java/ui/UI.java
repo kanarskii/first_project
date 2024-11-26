@@ -1,7 +1,7 @@
 package ui;
 
 import mobelLoadStrategy.StrategyType;
-import model.Model;
+import model.impl.Model;
 import model.impl.Student;
 
 import java.util.List;

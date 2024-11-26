@@ -5,7 +5,7 @@ package model.impl;
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Student {
+public class Student extends Model {
     /** Поле номер группы*/
     private final String group;
     /** Поле средний балл*/

@@ -4,7 +4,8 @@ import mobelLoadStrategy.LoadStrategy;
 import mobelLoadStrategy.StrategyType;
 import mobelLoadStrategy.impl.FileStrategy;
 import mobelLoadStrategy.impl.UserStrategy;
-import model.Model;
+
+import model.impl.Model;
 
 import java.util.ArrayList;
 import java.util.List;

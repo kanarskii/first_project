@@ -5,7 +5,7 @@ package model.impl;
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Bus {
+public class Bus extends Model {
     /** Поле номер*/
     private final String number;
     /** Поле модель*/
