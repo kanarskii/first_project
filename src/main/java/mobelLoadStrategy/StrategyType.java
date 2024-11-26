@@ -1,5 +1,5 @@
 package mobelLoadStrategy;
 
 public enum StrategyType {
-    FILE, USER
+    FILE, USER, RANDOM
 }

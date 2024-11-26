@@ -2,6 +2,7 @@ package ui;
 
 import mobelLoadStrategy.StrategyType;
 import model.Model;
+import model.ModelType;
 import service.ServiceImpl;
 
 import java.util.List;
@@ -30,21 +31,32 @@ public class UI_impl implements UI{
                 int op = Integer.parseInt(operations);
                 switch (op) {
                     case 1:
+                    {
                         load();
                         break;
-                    case 2:
+                    }
+                    case 2: {
                         look();
                         break;
+                    }
                     case 3:
+                    {
                         search();
                         break;
+                    }
                     case 4:
+                    {
                         help();
                         break;
+                    }
                     case 5:
+                    {
                         work = false;
                         break;
+                    }
+
                     default:
+
                         System.out.println("Выбран несуществующий пункт меню, попробуйте обратиться в раздел помощи. 4 для отображения доступных операций.");
                 }
             } else
@@ -53,32 +65,45 @@ public class UI_impl implements UI{
     }
 
     @Override
-    public void close() {
-        in.close();
+    public void close() {in.close();
     }
 
     @Override
     public void load() {
         System.out.println("Процесс загрузки элементов");
-        String operations;
 
         System.out.println("1\tЗагрузка из файла");
         System.out.println("2\tзагрузка из консоли");
         System.out.println("3\tЗаполнение N случайными элементами");
         System.out.println("Ввод для возврата в главное меню");
 
-        operations = in.next();
-        operations.trim().matches("\\d");
+        int operations = in.nextInt();
 
-        switch (operations) {
-                case "1":
-                    service.loadModels(StrategyType.FILE);
+                switch (operations) {
+                case 1:
+                    service.loadModels(StrategyType.FILE, null);
                     break;
-                case "2":
-                    service.loadModels(StrategyType.USER);
+                case 2:
+                    service.loadModels(StrategyType.USER, null);
                     break;
+                case 3: {
+                    ModelType type = null;
+                    while (type == null) {
+                        type = modelType();
+                        if (type == null) {
+                            System.out.println("""
+                                    Выполнить повторный поиск
+                                    1\tДа
+                                    Любая клавиша для возврата в главное меню
+                                    """);
+                            if (in.nextInt()!=1) {System.out.println("Возврат в главное меню\n");
+                                return;}
+                        }
+                    }
+                    service.loadModels(StrategyType.RANDOM, type);
+                    break;
+                }
         }
-        in.close();
     }
 
     @Override
@@ -145,4 +170,20 @@ public class UI_impl implements UI{
         } else
             System.out.println("Элементы отсутствуют, возврат в главное меню");
     }
+
+    private ModelType modelType () {
+        System.out.println("Выберете тип загружаемой модели:");
+        System.out.println("1\tАвтобус");
+        System.out.println("2\tПользователь");
+        System.out.println("3\tСтудент");
+
+        int operations = in.nextInt();
+        return switch (operations) {
+            case 1 -> ModelType.BUS;
+            case 2 -> ModelType.USER;
+            case 3 -> ModelType.STUDENT;
+            default -> null;
+        };
+    }
+
 }

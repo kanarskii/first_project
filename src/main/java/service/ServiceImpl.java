@@ -3,8 +3,10 @@ package service;
 import mobelLoadStrategy.LoadStrategy;
 import mobelLoadStrategy.StrategyType;
 import mobelLoadStrategy.impl.FileStrategy;
+import mobelLoadStrategy.impl.RandomStrategy;
 import mobelLoadStrategy.impl.UserStrategy;
 import model.Model;
+import model.ModelType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +20,19 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public List<Model> loadModels(StrategyType strategy) {
-        LoadStrategy load;
+    public List<Model> loadModels(StrategyType strategy, ModelType type) {
+        LoadStrategy load = null;
         switch (strategy) {
-            case FILE -> {
-                load =new FileStrategy();
+            case FILE -> load = new FileStrategy();
 
-            }
-            case USER -> {
-                load =new UserStrategy();
+            case USER -> load = new UserStrategy();
 
-            }
+            case RANDOM -> load = new RandomStrategy();
         }
+
+        load.load(type).forEach(System.out::println);
+
+
         return modelList;
     }
 
