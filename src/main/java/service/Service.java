@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static service.Sort.quickSort;
+import static service.Sorting.natural;
+import static service.Sorting.quick;
+
 import static service.Search.binarySearch;
 
 public class Service {
 
-    private List<Model> models = new ArrayList<>();
+    private  List<Model> models = new ArrayList<>();
     private boolean sorted = false;
 
     public boolean isSorted() {
@@ -27,6 +29,7 @@ public class Service {
     }
 
     public void setModels(List<Model> list) {
+        models = new ArrayList<>();
         for (Model model:list) {
             models.add(model);
         }
@@ -40,34 +43,34 @@ public class Service {
         sorted = false;
     }
 
-    public void sort() {
-        quickSort(models, 0, (models.size() - 1));
+    public void quickSorting() {
+        quick(models, 0, (models.size() - 1));
         sorted = true;
     }
 
+    public void naturalSorting() {
+        natural(models);
+        sorted = false;
+    }
+
     public Model searchModel(ModelType model, String str) {
-        int index;
+        int index = -1;
         switch (model) {
             case BUS -> {
                 Bus bus = Bus.builder().number(str).build();
                 index = binarySearch(models,bus, Comparator.comparing(Bus::getModel));
-                if (index<0) break;
-                return models.get(index);
             }
             case STUDENT -> {
                 Student student = Student.builder().number(Integer.parseInt(str)).build();
                 index = binarySearch(models,student, Comparator.comparingInt(Student::getNumber));
-                if (index<0) break;
-                return models.get(index);
             }
             case USER -> {
                 User user = User.builder().name(str).build();
                 index = binarySearch(models,user, Comparator.comparing(User::getName));
-                if (index<0) break;
-                return models.get(index);
             }
         }
-        return null;
+        if (index<0) return null;
+        return models.get(index);
     }
 
     public boolean empty(){

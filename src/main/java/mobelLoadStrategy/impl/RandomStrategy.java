@@ -63,7 +63,6 @@ public class RandomStrategy implements LoadStrategy {
         builder.append(".");
         builder.append(r.nextInt(9));
         builder.append(r.nextInt(9));
-
         return builder;
     }
 

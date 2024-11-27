@@ -1,25 +1,8 @@
 package service;
 
-import mobelLoadStrategy.LoadStrategy;
-import mobelLoadStrategy.StrategyType;
-import mobelLoadStrategy.impl.FileStrategy;
-import mobelLoadStrategy.impl.RandomStrategy;
-import mobelLoadStrategy.impl.UserStrategy;
-import model.Model;
-import model.ModelType;
-import model.impl.Bus;
-import model.impl.Student;
-import model.impl.User;
+public class ServiceImpl  {
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import static service.Sort.quickSort;
-
-public class ServiceImpl implements Service {
-
-    private final List<Model> modelList = new ArrayList<>();
+    /*private final List<Model> modelList = new ArrayList<>();
     private Comparator comparator;
 
     public List<Model> getModelList() {
@@ -81,7 +64,7 @@ public class ServiceImpl implements Service {
     @Override
     public boolean isEmpty() {
         return false;
-    }
+    }*/
 
    /* @Override
     public Model searchModel(String str) {

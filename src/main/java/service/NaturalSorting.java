@@ -5,7 +5,7 @@ import model.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import static service.Sort.quickSort;
+import static service.Sorting.quick;
 
 public class NaturalSorting {
     public static void naturalSorting(List<Model> list){
@@ -27,7 +27,7 @@ public class NaturalSorting {
         int from = 0;
         int to = newList.size() - 1;
 
-        quickSort(newList, from, to);
+        quick(newList, from, to);
 
         System.out.println(newList);
 

@@ -25,69 +25,38 @@ public class UI_impl implements UI{
     @Override
     public void runner() {
         String operations;
-
         boolean work = true;
-        System.out.println("Добро пожаловать. ");
+        System.out.println("Добро пожаловать.");
         modelType();
 
         while (work) {
             menu();
             operations = in.next();
-            if (operations.trim().matches("\\d")) {
-                int op = Integer.parseInt(operations);
-                switch (op) {
-                    case 1:
-                    {
-                        load();
-                        break;
-                    }
-                    case 2: {
-                        look();
-                        break;
-                    }
-                    case 3:
-                    {
-                        sorting();
-                        break;
-                    }
-
-                    case 4:
-                    {
-                        search();
-                        break;
-                    }
-                    case 5:
-                    {
-                        modelType();
-                        break;
-                    }
-                    case 6:
-                    {
-                        work = false;
-                        break;
-                    }
-
-                    default:
-
-                        System.out.println("Выбран несуществующий пункт меню, попробуйте обратиться в раздел помощи. 4 для отображения доступных операций.");
+            if (operations.trim().matches("[1-6]")) {
+                switch (operations) {
+                    case "1" -> load();
+                    case "2" -> look();
+                    case "3" -> sorting();
+                    case "4" -> search();
+                    case "5" -> modelType();
+                    case "6" -> work = false;
                 }
             } else
-                System.out.println("Введена неподдерживаемая команда попробуйте обратиться в раздел помощи. 4 для отображения доступных операций.");
+                System.out.println("Введена неподдерживаемая команда.");
         }
     }
 
     @Override
-    public void close() {in.close();
+    public void close() {
+        in.close();
     }
 
-
     private void load() {
-
         List<Model> models = List.of();
         System.out.println("Процесс загрузки элементов");
 
         System.out.println("1\tЗагрузка из файла");
-        System.out.println("2\tзагрузка из консоли");
+        System.out.println("2\tВвод из консоли");
         System.out.println("3\tЗаполнение N случайными элементами");
         System.out.println(".+\t для возврата в главное меню");
 
@@ -102,7 +71,6 @@ public class UI_impl implements UI{
         }
 
         service.addModels(models);
-
         sorting();
     }
 
@@ -131,8 +99,8 @@ public class UI_impl implements UI{
                         break;
                     }
                 }
-                searchModel = in.next();
 
+                searchModel = in.next();
                 search = service.searchModel(type, searchModel);
 
                 if (search != null) {
@@ -141,7 +109,6 @@ public class UI_impl implements UI{
             } else System.out.println("Элементы не отсортированы, поиск невозможен. Сначала отсортируйте элементы.");
         } else System.out.println("Отсутствуют элементы, поиск невозможен. Сначала загрузите элементы.");
     }
-
 
     private void menu() {
         System.out.println("1\tДля загрузки элементов");
@@ -165,7 +132,7 @@ public class UI_impl implements UI{
     private void modelType() {
         type = null;
         while (type == null) {
-            System.out.println("Выберете модел для дальнейшей работы:");
+            System.out.println("Выберете модель для дальнейшей работы:");
             System.out.println("1\tАвтобус");
             System.out.println("2\tПользователь");
             System.out.println("3\tСтудент");
@@ -179,21 +146,6 @@ public class UI_impl implements UI{
                     case "3" -> type = ModelType.STUDENT;
                 }
                 service.setModels(new ArrayList<>());
-
-
-                /*if (type == null) {
-                    System.out.println("""
-                                    Выполнить повторный поиск
-                                    1\tДа
-                                    Любая клавиша для возврата в главное меню
-                                    """);
-                    if (in.nextInt() != 1) {
-                        System.out.println("Возврат в главное меню\n");
-                    return;
-                    }
-                }*/
-
-
             }
         }
     }
@@ -201,12 +153,18 @@ public class UI_impl implements UI{
     private void sorting() {
         if (service.empty()) {
             System.out.println("Выполнить сортировку элементов");
-            System.out.println("1\tДа");
-            System.out.println(".+\tНет");
+            System.out.println("1\tВыполнить быструю сортировку");
+            System.out.println("2\tВыполнить натуральную сортировку (Доп)");
+            System.out.println(".+\tНе выполнять");
+            System.out.println("После выполнения натуральной сортировки коллекция считается не отсортированной!");
+
 
             String operations = in.next();
             if (operations.trim().matches("1")) {
-                service.sort();
+                service.quickSorting();
+            }
+            if (operations.trim().matches("2")) {
+                service.naturalSorting();
             }
         } else System.out.println("Отсутствуют элементы, сортировка невозможна. Сначала загрузите элементы.");
 
