@@ -2,6 +2,7 @@ package mobelLoadStrategy.impl;
 
 import mobelLoadStrategy.LoadStrategy;
 
+import model.ModelType;
 import model.impl.Bus;
 import model.impl.Model;
 import model.impl.Student;
@@ -29,6 +30,7 @@ public class FileStrategy implements LoadStrategy{
     @Override
     public List<Model> load(
             List<Model> objects  //vremenno podal list na vhod
+           //ModelType type
     )  {
 
         try {
@@ -94,7 +96,7 @@ public class FileStrategy implements LoadStrategy{
                 if (!r3) {
                 throw new Exception("Поле number класса Bus" + number + "не прошло валидацию");
                 }
-                if (r1 && r2 && r3) {
+        if (r1 && r2 && r3) {
                     checkResult = true;
                 }
             return checkResult;
@@ -151,4 +153,6 @@ public class FileStrategy implements LoadStrategy{
         }
         return checkResult;
     }
+
+
 }
