@@ -1,7 +1,6 @@
 package service;
 
 import mobelLoadStrategy.StrategyType;
-
 import model.Model;
 import model.ModelType;
 
