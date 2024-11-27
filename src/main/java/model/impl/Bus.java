@@ -5,7 +5,7 @@ package model.impl;
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Bus {
+public class Bus extends Model {
     /** Поле номер*/
     private final String number;
     /** Поле модель*/
@@ -40,6 +40,12 @@ public class Bus {
     public String toString() {
         return "Автобус регистрационный номер: " + number + " модель " + model + " с пробегом: " + mileage;
     }
+
+    @Override
+    public int compareTo(Model o) {
+        return this.number.compareTo(((Bus) o).getNumber());
+    }
+
     /**
      * Создание объекта Bus по паттерну Builder
      * @see Bus

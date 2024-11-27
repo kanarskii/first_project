@@ -38,13 +38,11 @@ public class User extends Model {
 
     @Override
     public String toString() {
-        return "Пользователь " + name + " пароль " + pass + " e-mail: " + email + '\'' +
-                '}';
+        return "Пользователь " + name + " пароль " + pass + " e-mail: " + email;
     }
 
     @Override
     public int compareTo(Model o) {
-        System.out.println(this.name +  "     " + ((User) o).getName());
         return this.name.compareTo(((User) o).getName());
     }
 
