@@ -1,13 +1,11 @@
 package model.impl;
 
-import model.Model;
-
 /**
  * Класс студент со свойствами <b>group</b>, <b>gpa</b> и <b>number</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Student implements Model {
+public class Student  extends Model{
     /** Поле номер группы*/
     private final String group;
     /** Поле средний балл*/
@@ -42,6 +40,12 @@ public class Student implements Model {
     public String toString() {
         return "Студент из группы " + group + " с средним балом " + gpa + " номером зачётной книги " + number;
     }
+
+    @Override
+    public int compareTo(Model o) {
+        return this.group.compareTo(((Student) o).getGroup());
+    }
+
     /**
      * Создание объекта Student по паттерну Builder
      * @see Student
