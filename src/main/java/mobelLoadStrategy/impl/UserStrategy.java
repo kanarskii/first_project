@@ -1,7 +1,7 @@
 package mobelLoadStrategy.impl;
 
 import mobelLoadStrategy.LoadStrategy;
-import model.Model;
+import model.impl.Model;
 import model.ModelType;
 
 import java.util.List;
