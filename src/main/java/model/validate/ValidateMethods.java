@@ -31,6 +31,27 @@ public class ValidateMethods implements Validate{
         else return true;
     }
 
+    @Override
+    public boolean busValidate(String classType, String number, String model, Integer mileage) {
+        if (stringValidate(classType) && stringValidate(number) && stringValidate(model) && intValidate(mileage)){
+        return true;}
+        else return false;
+    }
+
+    @Override
+    public boolean userValidate(String classType, String name, String pass, String email) {
+        if (stringValidate(classType) && stringValidate(name) && stringValidate(pass) && stringValidate(email)){
+            return true;}
+        else return false;
+    }
+
+    @Override
+    public boolean studentValidate(String classType, String group, Double gpa, Integer number) {
+        if (stringValidate(classType) && stringValidate(group) && doubleValidate(gpa) && intValidate(number)){
+            return true;}
+        else return false;
+    }
+
     public static boolean isEmailValid(String str) {
         return str.matches("^[\\w-\\.]+@[\\w-]+(\\.[\\w-]+)*\\.[a-z]{2,}$");
     }

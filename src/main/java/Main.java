@@ -1,4 +1,5 @@
 import mobelLoadStrategy.impl.FileStrategy;
+import model.ModelType;
 import ui.UI;
 import ui.UI_impl;
 
@@ -28,7 +29,10 @@ public class Main {
 
         //ui.runner();
         //ui.close();
+        FileStrategy strategy = new FileStrategy();
 
+        strategy.load(ModelType.BUS);
+        System.out.println(strategy.fromFileBusList);
 
 /*        Bus bus = Bus.builder().mileage(10).model("model").number("2058-qwe").build();
         System.out.println(bus);
@@ -50,8 +54,8 @@ public class Main {
         List<Model> busList = new ArrayList<>();
         busList.add(Bus.builder().mileage(23).model("iuiu").number("454UF").build());
 
-        FileStrategy strategy = new FileStrategy();
-        strategy.load(busList);
+
+        //strategy.load(busList);
         //strategy.load(studentList);
         //strategy.load(userList);
         //System.out.println(strategy.objectsList);
