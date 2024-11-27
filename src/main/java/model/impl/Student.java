@@ -2,12 +2,14 @@ package model.impl;
 
 import model.Model;
 
+import java.util.Objects;
+
 /**
  * Класс студент со свойствами <b>group</b>, <b>gpa</b> и <b>number</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Student implements Model {
+public class Student  extends Model {
     /** Поле номер группы*/
     private final String group;
     /** Поле средний балл*/
@@ -42,6 +44,25 @@ public class Student implements Model {
     public String toString() {
         return "Студент из группы " + group + " с средним балом " + gpa + " номером зачётной книги " + number;
     }
+
+    @Override
+    public int compareTo(Model o) {
+        return this.number.compareTo(((Student) o).getNumber());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(group, student.group) && Objects.equals(gpa, student.gpa) && Objects.equals(number, student.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(group, gpa, number);
+    }
+
     /**
      * Создание объекта Student по паттерну Builder
      * @see Student

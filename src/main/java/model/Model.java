@@ -1,4 +1,8 @@
 package model;
 
-public interface Model {
+public abstract class Model implements Comparable<Model>{
+    @Override
+    public int compareTo(Model o) {
+        return 0;
+    }
 }

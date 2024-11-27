@@ -2,12 +2,14 @@ package model.impl;
 
 import model.Model;
 
+import java.util.Objects;
+
 /**
  * Класс автобус со свойствами <b>number</b>, <b>model</b> и <b>mileage</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Bus implements Model {
+public class Bus extends Model {
     /** Поле номер*/
     private final String number;
     /** Поле модель*/
@@ -42,6 +44,25 @@ public class Bus implements Model {
     public String toString() {
         return "Автобус регистрационный номер: " + number + " модель " + model + " с пробегом: " + mileage;
     }
+
+    @Override
+    public int compareTo(Model o) {
+        return this.number.compareTo(((Bus) o).getNumber());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bus bus = (Bus) o;
+        return Objects.equals(number, bus.number) && Objects.equals(model, bus.model) && Objects.equals(mileage, bus.mileage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, model, mileage);
+    }
+
     /**
      * Создание объекта Bus по паттерну Builder
      * @see Bus
