@@ -45,7 +45,7 @@ public class Student  extends Model {
 
     @Override
     public int compareTo(Model o) {
-        return this.group.compareTo(((Student) o).getGroup());
+        return this.number.compareTo(((Student) o).getNumber());
     }
 
     /**

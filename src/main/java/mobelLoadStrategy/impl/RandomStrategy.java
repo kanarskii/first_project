@@ -20,7 +20,7 @@ public class RandomStrategy implements LoadStrategy {
         String count = in.next();
         int iteration;
         if (count.trim().matches("\\d+")) {
-            iteration = Integer.getInteger(count);
+            iteration = Integer.parseInt(count);
         } else {
             iteration = r.nextInt(5000);
             System.out.println("Введено некорректное значение,  коллекция будет одержать " + iteration + " элементов");

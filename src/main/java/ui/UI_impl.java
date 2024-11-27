@@ -77,16 +77,17 @@ public class UI_impl implements UI{
         System.out.println("3\tЗаполнение N случайными элементами");
         System.out.println("Ввод для возврата в главное меню");
 
-        int operations = in.nextInt();
+        String operations = in.next();
 
-                switch (operations) {
-                case 1:
+        if (operations.trim().matches("\\d")) {
+            switch (operations) {
+                case "1":
                     service.loadModels(StrategyType.FILE, null);
                     break;
-                case 2:
+                case "2":
                     service.loadModels(StrategyType.USER, null);
                     break;
-                case 3: {
+                case "3": {
                     ModelType type = null;
                     while (type == null) {
                         type = modelType();
@@ -96,19 +97,43 @@ public class UI_impl implements UI{
                                     1\tДа
                                     Любая клавиша для возврата в главное меню
                                     """);
-                            if (in.nextInt()!=1) {System.out.println("Возврат в главное меню\n");
-                                return;}
+                            if (in.nextInt() != 1) {
+                                System.out.println("Возврат в главное меню\n");
+                                return;
+                            }
                         }
                     }
                     service.loadModels(StrategyType.RANDOM, type);
                     break;
                 }
+                /*default: {
+                    ModelType type = null;
+                    while (type == null) {
+                        type = modelType();
+                        if (type == null) {
+                            System.out.println("""
+                                    Выполнить повторный поиск
+                                    1\tДа
+                                    Любая клавиша для возврата в главное меню
+                                    """);
+                            if (in.nextInt() != 1) {
+                                System.out.println("Возврат в главное меню\n");
+                                return;
+                            }
+                        }
+                    }
+                    service.loadModels(StrategyType.RANDOM, type);
+                    break;
+                }*/
+
+            }
         }
     }
 
     @Override
     public void search() {
         if (!service.isEmpty()) {
+            Model search = null;
             String operations;
             String  searchModel = "";
             System.out.println("Поиск элемента в загруженной коллекции");
@@ -125,6 +150,7 @@ public class UI_impl implements UI{
                     searchModel = in.next();
                     // валидация
                     //if (notValid) System.out.println("Введенное значение не соответствует формату");
+                    search = service.searchModel(ModelType.BUS, searchModel);
                     break;
                 }
                 case "2" : {
@@ -132,6 +158,7 @@ public class UI_impl implements UI{
                     System.out.println("формат согласно валидации");
                     searchModel = in.next();
                     // валидация
+                    search = service.searchModel(ModelType.USER, searchModel);
                     break;
                 }
 
@@ -140,13 +167,16 @@ public class UI_impl implements UI{
                     System.out.println("формат согласно валидации");
                     searchModel = in.next();
                     // валидация
+
+                    search = service.searchModel(ModelType.STUDENT, searchModel);
+
                     break;
                 }
             }
 
-            List<Model> search = service.searchModel(searchModel);
-
-            if (!search.isEmpty()) {search.forEach(System.out::println);}
+            if (search!=null) {
+                System.out.println(search);
+            }
             else System.out.println("Искомый элемент не найден");
         } else System.out.println("В программе отсутствуют значения, поиск невозможен. Сначала загрузите элементы.");
     }
