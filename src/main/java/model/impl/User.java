@@ -2,6 +2,8 @@ package model.impl;
 
 import model.Model;
 
+import java.util.Objects;
+
 /**
  * Класс поьзователь со свойствами <b>name</b>, <b>pass</b> и <b>email</b>.
  * @autor Виктор Дробышевский
@@ -40,12 +42,25 @@ public class User extends Model {
 
     @Override
     public String toString() {
-        return "Пользователь " + name + " пароль " + pass + " e-mail: " + email;
+        return "Пользователь " + name;// + " пароль " + pass + " e-mail: " + email;
     }
 
     @Override
     public int compareTo(Model o) {
         return this.name.compareTo(((User) o).getName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) && Objects.equals(pass, user.pass) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, pass, email);
     }
 
     /**

@@ -2,6 +2,8 @@ package model.impl;
 
 import model.Model;
 
+import java.util.Objects;
+
 /**
  * Класс студент со свойствами <b>group</b>, <b>gpa</b> и <b>number</b>.
  * @autor Виктор Дробышевский
@@ -46,6 +48,19 @@ public class Student  extends Model {
     @Override
     public int compareTo(Model o) {
         return this.number.compareTo(((Student) o).getNumber());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(group, student.group) && Objects.equals(gpa, student.gpa) && Objects.equals(number, student.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(group, gpa, number);
     }
 
     /**

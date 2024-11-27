@@ -2,6 +2,8 @@ package model.impl;
 
 import model.Model;
 
+import java.util.Objects;
+
 /**
  * Класс автобус со свойствами <b>number</b>, <b>model</b> и <b>mileage</b>.
  * @autor Виктор Дробышевский
@@ -46,6 +48,19 @@ public class Bus extends Model {
     @Override
     public int compareTo(Model o) {
         return this.number.compareTo(((Bus) o).getNumber());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bus bus = (Bus) o;
+        return Objects.equals(number, bus.number) && Objects.equals(model, bus.model) && Objects.equals(mileage, bus.mileage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, model, mileage);
     }
 
     /**
