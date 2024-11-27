@@ -1,11 +1,13 @@
 package model.impl;
 
+import model.Model;
+
 /**
  * Класс студент со свойствами <b>group</b>, <b>gpa</b> и <b>number</b>.
  * @autor Виктор Дробышевский
  * @version 1.0
  */
-public class Student  extends Model{
+public class Student  extends Model {
     /** Поле номер группы*/
     private final String group;
     /** Поле средний балл*/

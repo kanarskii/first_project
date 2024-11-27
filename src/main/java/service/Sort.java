@@ -1,6 +1,6 @@
 package service;
 
-import model.impl.Model;
+import model.Model;
 
 import java.util.List;
 

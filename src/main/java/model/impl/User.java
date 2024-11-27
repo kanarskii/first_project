@@ -1,5 +1,7 @@
 package model.impl;
 
+import model.Model;
+
 /**
  * Класс поьзователь со свойствами <b>name</b>, <b>pass</b> и <b>email</b>.
  * @autor Виктор Дробышевский

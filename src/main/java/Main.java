@@ -59,7 +59,7 @@ public class Main {
         students = studentList.get(3);
         System.out.println(Search.binarySearch(studentList,students, Comparator.comparingInt(Student::getNumber)));
         System.out.println(user);*/
-        list.add(user);
+/*        list.add(user);
         list.add(new User("Tom", "12321", "1231@gmail.com"));
         list.add(new User("Bob", "12321", "1231@gmail.com"));
         list.add(new User("Jack", "12321", "1231@gmail.com"));
@@ -70,6 +70,6 @@ public class Main {
 
         quickSort(list, 0, (list.size() - 1));
 
-        System.out.println(list);
+        System.out.println(list);*/
     }
 }

@@ -1,4 +1,4 @@
-package model.impl;
+package model;
 
 public abstract class Model implements Comparable<Model>{
     @Override
