@@ -1,6 +1,5 @@
 package mobelLoadStrategy;
 
-import model.Model;
 import model.ModelType;
 
 import java.util.List;

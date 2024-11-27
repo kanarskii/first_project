@@ -1,31 +1,37 @@
 package ui;
 
+import mobelLoadStrategy.ServiceLoadModel;
 import mobelLoadStrategy.StrategyType;
 import model.Model;
 import model.ModelType;
-import service.ServiceImpl;
+import service.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 /**
  * Класс реализация пользовательского интерфейса.
  * @autor Виктор Дробышевский
- * @version 0.8
+ * @version 0.9
  */
 
 public class UI_impl implements UI{
-    private final ServiceImpl service = new ServiceImpl();
+
+    private final Service service = new Service();
+    private final ServiceLoadModel loader = new ServiceLoadModel();
     private final Scanner in = new Scanner(System.in);
+    private ModelType type;
 
     @Override
     public void runner() {
         String operations;
 
         boolean work = true;
-        System.out.println("Добро пожаловать.");
-        help();
+        System.out.println("Добро пожаловать. ");
+        modelType();
 
         while (work) {
+            menu();
             operations = in.next();
             if (operations.trim().matches("\\d")) {
                 int op = Integer.parseInt(operations);
@@ -41,15 +47,21 @@ public class UI_impl implements UI{
                     }
                     case 3:
                     {
+                        sorting();
+                        break;
+                    }
+
+                    case 4:
+                    {
                         search();
                         break;
                     }
-                    case 4:
+                    case 5:
                     {
-                        help();
+                        modelType();
                         break;
                     }
-                    case 5:
+                    case 6:
                     {
                         work = false;
                         break;
@@ -68,152 +80,135 @@ public class UI_impl implements UI{
     public void close() {in.close();
     }
 
-    @Override
-    public void load() {
+
+    private void load() {
+
+        List<Model> models = List.of();
         System.out.println("Процесс загрузки элементов");
 
         System.out.println("1\tЗагрузка из файла");
         System.out.println("2\tзагрузка из консоли");
         System.out.println("3\tЗаполнение N случайными элементами");
-        System.out.println("Ввод для возврата в главное меню");
+        System.out.println(".+\t для возврата в главное меню");
 
         String operations = in.next();
 
-        if (operations.trim().matches("\\d")) {
+        if (operations.trim().matches("[1-3]")) {
             switch (operations) {
-                case "1":
-                    service.loadModels(StrategyType.FILE, null);
-                    break;
-                case "2":
-                    service.loadModels(StrategyType.USER, null);
-                    break;
-                case "3": {
-                    ModelType type = null;
-                    while (type == null) {
-                        type = modelType();
-                        if (type == null) {
-                            System.out.println("""
-                                    Выполнить повторный поиск
-                                    1\tДа
-                                    Любая клавиша для возврата в главное меню
-                                    """);
-                            if (in.nextInt() != 1) {
-                                System.out.println("Возврат в главное меню\n");
-                                return;
-                            }
-                        }
-                    }
-                    service.loadModels(StrategyType.RANDOM, type);
-                    break;
-                }
-                /*default: {
-                    ModelType type = null;
-                    while (type == null) {
-                        type = modelType();
-                        if (type == null) {
-                            System.out.println("""
-                                    Выполнить повторный поиск
-                                    1\tДа
-                                    Любая клавиша для возврата в главное меню
-                                    """);
-                            if (in.nextInt() != 1) {
-                                System.out.println("Возврат в главное меню\n");
-                                return;
-                            }
-                        }
-                    }
-                    service.loadModels(StrategyType.RANDOM, type);
-                    break;
-                }*/
-
+                case "1" -> models = loader.loadModel(StrategyType.FILE, type);
+                case "2" -> models = loader.loadModel(StrategyType.USER, type);
+                case "3" -> models = loader.loadModel(StrategyType.RANDOM, type);
             }
         }
+
+        service.addModels(models);
+
+        sorting();
     }
 
-    @Override
-    public void search() {
-        if (!service.isEmpty()) {
-            Model search = null;
-            String operations;
-            String  searchModel = "";
-            System.out.println("Поиск элемента в загруженной коллекции");
-            System.out.println("1\tАвтобус");
-            System.out.println("2\tПользователь");
-            System.out.println("3\tСтудент");
-            operations = in.next();
-            operations.trim().matches("\\d");
+    private void search() {
+        if (service.empty()) {
+            if (service.isSorted()) {
 
-            switch (operations) {
-                case "1" : {
-                    System.out.println("Для поиска автобуса необходимо указать его номер в соответствии с форматом:");
-                    System.out.println("формат согласно валидации");
-                    searchModel = in.next();
-                    // валидация
-                    //if (notValid) System.out.println("Введенное значение не соответствует формату");
-                    search = service.searchModel(ModelType.BUS, searchModel);
-                    break;
+                Model search = null;
+                String searchModel;
+
+                switch (type) {
+                    case BUS: {
+                        System.out.println("Для поиска автобуса необходимо указать его номер в соответствии с форматом:");
+                        System.out.println("формат согласно валидации");
+                        break;
+                    }
+                    case USER: {
+                        System.out.println("Для поиска пользователя необходимо указать его имя в соответствии с форматом:");
+                        System.out.println("формат согласно валидации");
+                        break;
+                    }
+
+                    case STUDENT: {
+                        System.out.println("Для поиска студента необходимо указать его номер зачетной книжки в соответствии с форматом:");
+                        System.out.println("формат согласно валидации");
+                        break;
+                    }
                 }
-                case "2" : {
-                    System.out.println("Для поиска пользователя необходимо указать его имя в соответствии с форматом:");
-                    System.out.println("формат согласно валидации");
-                    searchModel = in.next();
-                    // валидация
-                    search = service.searchModel(ModelType.USER, searchModel);
-                    break;
-                }
+                searchModel = in.next();
 
-                case "3" : {
-                    System.out.println("Для поиска студента необходимо указать его номер зачетной книжки в соответствии с форматом:");
-                    System.out.println("формат согласно валидации");
-                    searchModel = in.next();
-                    // валидация
+                search = service.searchModel(type, searchModel);
 
-                    search = service.searchModel(ModelType.STUDENT, searchModel);
-
-                    break;
-                }
-            }
-
-            if (search!=null) {
-                System.out.println(search);
-            }
-            else System.out.println("Искомый элемент не найден");
-        } else System.out.println("В программе отсутствуют значения, поиск невозможен. Сначала загрузите элементы.");
+                if (search != null) {
+                    System.out.println(search);
+                } else System.out.println("Искомый элемент не найден");
+            } else System.out.println("Элементы не отсортированы, поиск невозможен. Сначала отсортируйте элементы.");
+        } else System.out.println("Отсутствуют элементы, поиск невозможен. Сначала загрузите элементы.");
     }
 
-    @Override
-    public void help() {
+
+    private void menu() {
         System.out.println("1\tДля загрузки элементов");
         System.out.println("\t1\tЗагрузка из файла");
         System.out.println("\t2\tзагрузка из консоли");
         System.out.println("\t3\tЗаполнение N случайными элементами");
         System.out.println("2\tДля просмотра загруженной коллекции");
-        System.out.println("3\tДля поиска элемента");
-        System.out.println("4\tПомощь");
-        System.out.println("5\tВыход");
+        System.out.println("3\tДля выполнения сортировки");
+        System.out.println("4\tДля поиска элемента");
+        System.out.println("5\tДля изменения типа элементов");
+        System.out.println("6\tВыход");
     }
 
-    @Override
-    public void look() {
-        if (!service.isEmpty()){
-            service.getModelList().forEach(System.out::println);
+    private void look() {
+        if (service.empty()){
+            service.getModels().forEach(System.out::println);
         } else
             System.out.println("Элементы отсутствуют, возврат в главное меню");
     }
 
-    private ModelType modelType () {
-        System.out.println("Выберете тип загружаемой модели:");
-        System.out.println("1\tАвтобус");
-        System.out.println("2\tПользователь");
-        System.out.println("3\tСтудент");
+    private void modelType() {
+        type = null;
+        while (type == null) {
+            System.out.println("Выберете модел для дальнейшей работы:");
+            System.out.println("1\tАвтобус");
+            System.out.println("2\tПользователь");
+            System.out.println("3\tСтудент");
 
-        int operations = in.nextInt();
-        return switch (operations) {
-            case 1 -> ModelType.BUS;
-            case 2 -> ModelType.USER;
-            case 3 -> ModelType.STUDENT;
-            default -> null;
-        };
+            String operations = in.next();
+
+            if (operations.trim().matches("[1-3]")) {
+                switch (operations) {
+                    case "1" -> type = ModelType.BUS;
+                    case "2" -> type = ModelType.USER;
+                    case "3" -> type = ModelType.STUDENT;
+                }
+                service.setModels(new ArrayList<>());
+
+
+                /*if (type == null) {
+                    System.out.println("""
+                                    Выполнить повторный поиск
+                                    1\tДа
+                                    Любая клавиша для возврата в главное меню
+                                    """);
+                    if (in.nextInt() != 1) {
+                        System.out.println("Возврат в главное меню\n");
+                    return;
+                    }
+                }*/
+
+
+            }
+        }
     }
 
+    private void sorting() {
+        if (service.empty()) {
+            System.out.println("Выполнить сортировку элементов");
+            System.out.println("1\tДа");
+            System.out.println(".+\tНет");
+
+            String operations = in.next();
+            if (operations.trim().matches("1")) {
+                service.sort();
+            }
+        } else System.out.println("Отсутствуют элементы, сортировка невозможна. Сначала загрузите элементы.");
+
+    }
 }
