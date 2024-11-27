@@ -46,9 +46,7 @@ try {
         //while (sc.hasNextLine()) {
         //String line = sc.nextLine();
         String[] splitLine = line.split(";");
-        // System.out.println(splitLine[3]);
 
-        //if (validate.stringValidate(splitLine[0])) {
         if (splitLine[0].contains("bus")) {
             final ModelType bus = type.BUS;
             String classType = splitLine[0];
