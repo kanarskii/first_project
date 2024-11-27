@@ -31,8 +31,10 @@ public class Main {
         //ui.close();
         FileStrategy strategy = new FileStrategy();
 
-        strategy.load(ModelType.BUS);
-        System.out.println(strategy.fromFileBusList);
+        //strategy.load(ModelType.BUS);
+        //System.out.println(strategy.fromFileBusList);
+        strategy.load(ModelType.USER);
+        System.out.println(strategy.fromFileUserList);
 
 /*        Bus bus = Bus.builder().mileage(10).model("model").number("2058-qwe").build();
         System.out.println(bus);
