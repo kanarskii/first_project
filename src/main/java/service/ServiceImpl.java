@@ -5,7 +5,7 @@ import mobelLoadStrategy.StrategyType;
 import mobelLoadStrategy.impl.FileStrategy;
 import mobelLoadStrategy.impl.RandomStrategy;
 import mobelLoadStrategy.impl.UserStrategy;
-import model.impl.Model;
+import model.Model;
 import model.ModelType;
 import model.impl.Bus;
 import model.impl.Student;

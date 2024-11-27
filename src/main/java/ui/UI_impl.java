@@ -1,7 +1,7 @@
 package ui;
 
 import mobelLoadStrategy.StrategyType;
-import model.impl.Model;
+import model.Model;
 import model.ModelType;
 import service.ServiceImpl;
 

@@ -1,7 +1,8 @@
 package service;
 
 import mobelLoadStrategy.StrategyType;
-import model.impl.Model;
+
+import model.Model;
 import model.ModelType;
 
 import java.util.List;
