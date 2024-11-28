@@ -22,23 +22,23 @@ public class RandomStrategy implements LoadStrategy {
         if (count.trim().matches("\\d+")) {
             iteration = Integer.parseInt(count);
         } else {
-            iteration = r.nextInt(5000);
-            System.out.println("Введено некорректное значение,  коллекция будет одержать " + iteration + " элементов");
+            iteration = r.nextInt(1000);
+            System.out.println("Введено некорректное значение, коллекция будет содержать " + iteration + " элементов");
         }
 
         switch (type){
             case USER -> {
                 for (int i = 1; i<=iteration; i++ )
-                    loadString.add(randomString() + " " +randomString() + " " + randomString());
+                    loadString.add(randomString() + ";" +randomString() + ";" + randomString());
             }
             case STUDENT -> {
                 for (int i = 1; i<=iteration; i++ )
-                    loadString.add(randomString() + " " + randomDouble() + " " + randomInteger());
+                    loadString.add(randomString() + ";" + randomDouble() + ";" + randomInteger());
 
             }
             case BUS -> {
                 for (int i = 1; i <= iteration; i++)
-                    loadString.add(randomString() + " " + randomString() + " " + randomInteger());
+                    loadString.add(randomString() + ";" + randomString() + ";" + randomInteger());
             }
         }
         return loadString;
@@ -63,7 +63,6 @@ public class RandomStrategy implements LoadStrategy {
         builder.append(".");
         builder.append(r.nextInt(9));
         builder.append(r.nextInt(9));
-
         return builder;
     }
 
@@ -74,9 +73,5 @@ public class RandomStrategy implements LoadStrategy {
             builder.append(r.nextInt(9));
         }
         return builder;
-    }
-
-    private boolean localValidate (String str) {
-        return str.trim().matches("\\w+ \\d+.\\d{2} \\d+");
     }
 }

@@ -1,25 +1,9 @@
 package service;
 
-import mobelLoadStrategy.LoadStrategy;
-import mobelLoadStrategy.StrategyType;
-import mobelLoadStrategy.impl.FileStrategy;
-import mobelLoadStrategy.impl.RandomStrategy;
-import mobelLoadStrategy.impl.UserStrategy;
-import model.impl.Model;
-import model.ModelType;
-import model.impl.Bus;
-import model.impl.Student;
-import model.impl.User;
+public class ServiceImpl  {
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import static service.Sort.quickSort;
-
-public class ServiceImpl implements Service {
-
-    private final List<Model> modelList = new ArrayList<>();
+    /*private final List<Model> modelList = new ArrayList<>();
+    private Comparator comparator;
 
     public List<Model> getModelList() {
         return modelList;
@@ -58,32 +42,51 @@ public class ServiceImpl implements Service {
 
     @Override
     public Model searchModel(ModelType model, String str) {
-        int index;
+        int index = -1;
         switch (model) {
             case BUS -> {
                 Bus bus = Bus.builder().number(str).build();
                 index = Search.binarySearch(modelList,bus, Comparator.comparing(Bus::getModel));
-                if (index<0) break;
-                return modelList.get(index);
             }
             case STUDENT -> {
                 Student student = Student.builder().number(Integer.parseInt(str)).build();
                 index = Search.binarySearch(modelList,student, Comparator.comparingInt(Student::getNumber));
-                if (index<0) break;
-                return modelList.get(index);
             }
             case USER -> {
                 User user = User.builder().name(str).build();
                 index = Search.binarySearch(modelList,user, Comparator.comparing(User::getName));
-                if (index<0) break;
-                return modelList.get(index);
             }
         }
-        return null;
+        if (index<0) return null;
+        return modelList.get(index);
     }
 
     @Override
     public boolean isEmpty() {
-        return modelList.isEmpty();
-    }
+        return false;
+    }*/
+
+   /* @Override
+    public Model searchModel(String str) {
+        //ToDo Возможно вынести выше. И использовать этот компоратор и для сортировки
+        if(!modelList.isEmpty()) {
+            var tmp = modelList.get(0);
+            Model obj = null;
+            if (tmp instanceof Student) {
+                comparator = Comparator.comparingInt(Student::getNumber);
+                obj = Student.builder().number(Integer.parseInt(str)).build();
+            } else if (tmp instanceof User) {
+                comparator = Comparator.comparing(User::getEmail);
+                obj = User.builder().email(str).build();
+            } else if (tmp instanceof Bus) {
+                comparator = Comparator.comparing(Bus::getNumber);
+                obj = Bus.builder().number(str).build();
+            }
+            var resSearch = Search.binarySearch(modelList, obj, comparator);
+            if (resSearch >= 0) {
+                return modelList.get(resSearch);
+            }
+        }
+        return null; //ToDo куда пойдет результат поиска
+    }*/
 }

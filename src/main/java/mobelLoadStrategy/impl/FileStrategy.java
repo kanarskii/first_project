@@ -5,9 +5,7 @@ import mobelLoadStrategy.LoadStrategy;
 import model.ModelType;
 import model.validate.ValidateMethods;
 
-import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -103,7 +101,3 @@ try {
         return null;
     }
 }
-
-
-
-
