@@ -65,7 +65,7 @@ public class UI_impl implements UI{
         System.out.println("1\tЗагрузка из файла");
         System.out.println("2\tВвод из консоли");
         System.out.println("3\tЗаполнение N случайными элементами");
-        System.out.println(".+\t для возврата в главное меню");
+        System.out.println("+\t для возврата в главное меню");
 
         String operations = in.next();
 
