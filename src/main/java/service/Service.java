@@ -1,10 +1,6 @@
 package service;
 
 import model.Model;
-import model.ModelType;
-import model.impl.Bus;
-import model.impl.Student;
-import model.impl.User;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,7 +27,7 @@ public class Service {
     public void setModels(List<Model> list) {
         models = new ArrayList<>();
         for (Model model:list) {
-            models.add(model);
+            this.models.add(model);
         }
         sorted = false;
     }
@@ -43,32 +39,19 @@ public class Service {
         sorted = false;
     }
 
-    public void quickSorting() {
-        quick(models, 0, (models.size() - 1));
+    public void quickSorting(Comparator  comparator) {
+        quick(models, 0, (models.size() - 1), comparator);
         sorted = true;
     }
 
-    public void naturalSorting() {
-        natural(models);
+    public <T> void naturalSorting(Comparator comparator) {
+        natural(models, comparator);
         sorted = false;
     }
 
-    public Model searchModel(ModelType model, String str) {
-        int index = -1;
-        switch (model) {
-            case BUS -> {
-                Bus bus = Bus.builder().number(str).build();
-                index = binarySearch(models,bus, Comparator.comparing(Bus::getModel));
-            }
-            case STUDENT -> {
-                Student student = Student.builder().number(Integer.parseInt(str)).build();
-                index = binarySearch(models,student, Comparator.comparingInt(Student::getNumber));
-            }
-            case USER -> {
-                User user = User.builder().name(str).build();
-                index = binarySearch(models,user, Comparator.comparing(User::getName));
-            }
-        }
+    public  Model searchModel(Model model, Comparator  comparator) {
+        var index = -1;
+        index = binarySearch(models, model, comparator);
         if (index<0) return null;
         return models.get(index);
     }

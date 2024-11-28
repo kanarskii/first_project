@@ -22,7 +22,7 @@ public class Bus extends Model {
      * @param model модель
      * @param mileage пробег
      */
-    public Bus(String number, String model, Integer mileage) {
+    private Bus(String number, String model, Integer mileage) {
         this.number = number;
         this.model = model;
         this.mileage = mileage;

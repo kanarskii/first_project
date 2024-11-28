@@ -3,10 +3,11 @@ package service;
 import model.Model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Sorting {
-    public static void quick(List<Model> list, int from, int to) {
+    public static <T> void quick(List<T> list, int from, int to, Comparator <T> comparator) {
 
         if (list.isEmpty())
             return;
@@ -15,17 +16,17 @@ public class Sorting {
             return;
 
         int middle = from + (to - from) / 2;
-        Model pivot = list.get(middle);
+        T pivot = list.get(middle);
 
         int i = from, j = to;
         while (i <= j) {
-            while (list.get(i).compareTo(pivot) < 0) {
+            while (comparator.compare(list.get(i), pivot) < 0) {
                 i++;
             }
-            while (list.get(j).compareTo(pivot) > 0) {
+            while (comparator.compare(list.get(j), pivot) > 0) {
                 j--;
             }
-            if (list.get(j).compareTo(pivot) <= 0) {
+            if (comparator.compare(list.get(j), list.get(i))<= 0) {
                 swap(list, i, j);
                 i++;
                 j--;
@@ -33,13 +34,13 @@ public class Sorting {
         }
 
         if (from <= j)
-            quick(list, from, j);
+            quick(list, from, j, comparator);
 
         if (to >= i)
-            quick(list, i, to);
+            quick(list, i, to, comparator);
     }
 
-    public static void natural(List<Model> list){
+    public static <T> void natural(List<T> list, Comparator <T>  comparator){
         List<Integer> numbersList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
@@ -47,23 +48,25 @@ public class Sorting {
                 numbersList.add(i);
             }
         }
+        System.out.println("Номера элементов к которым будет применена натуральная сортировка");
+        numbersList.forEach(System.out::print);
+        System.out.println();
 
-        List<Model> newList = new ArrayList<>();
+        List<T> newList = new ArrayList<>();
 
         for (Integer integer : numbersList) {
             newList.add(list.get(integer));
         }
 
-        quick(newList, 0, newList.size() - 1);
+        quick(newList, 0, newList.size() - 1, comparator);
 
         for (int i = 0; i < numbersList.size(); i++) {
             list.set(numbersList.get(i), newList.get(i));
         }
-        System.out.println(list);
     }
 
-    private static void swap(List<Model> listU, int i, int j) {
-        Model temp = listU.get(i);
+    private static <T> void swap(List<T> listU, int i, int j) {
+        T temp = listU.get(i);
         listU.set(i, listU.get(j));
         listU.set(j, temp);
     }

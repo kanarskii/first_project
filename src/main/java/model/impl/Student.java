@@ -22,7 +22,7 @@ public class Student  extends Model {
      * @param gpa средний балл
      * @param number номер зачетной книжки
      */
-    public Student(String group, Double gpa, Integer number) {
+    private Student(String group, Double gpa, Integer number) {
         this.group = group;
         this.gpa = gpa;
         this.number = number;

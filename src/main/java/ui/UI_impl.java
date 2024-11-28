@@ -4,9 +4,13 @@ import mobelLoadStrategy.ServiceLoadModel;
 import mobelLoadStrategy.StrategyType;
 import model.Model;
 import model.ModelType;
+import model.impl.Bus;
+import model.impl.Student;
+import model.impl.User;
 import service.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 /**
@@ -21,6 +25,7 @@ public class UI_impl implements UI{
     private final ServiceLoadModel loader = new ServiceLoadModel();
     private final Scanner in = new Scanner(System.in);
     private ModelType type;
+    private Comparator comparator;
 
     @Override
     public void runner() {
@@ -77,7 +82,7 @@ public class UI_impl implements UI{
     private void search() {
         if (service.empty()) {
             if (service.isSorted()) {
-
+                Model model =null;
                 Model search = null;
                 String searchModel;
 
@@ -101,7 +106,20 @@ public class UI_impl implements UI{
                 }
 
                 searchModel = in.next();
-                search = service.searchModel(type, searchModel);
+
+            switch (type) {
+                case BUS -> {
+                    model = Bus.builder().number(searchModel).build();
+                }
+                case STUDENT -> {
+                    model = Student.builder().number(Integer.parseInt(searchModel)).build();
+                }
+                case USER -> {
+                    model = User.builder().name(searchModel).build();
+                }
+            }
+
+                search = service.searchModel(model, comparator);
 
                 if (search != null) {
                     System.out.println(search);
@@ -141,9 +159,18 @@ public class UI_impl implements UI{
 
             if (operations.trim().matches("[1-3]")) {
                 switch (operations) {
-                    case "1" -> type = ModelType.BUS;
-                    case "2" -> type = ModelType.USER;
-                    case "3" -> type = ModelType.STUDENT;
+                    case "1" -> {
+                        type = ModelType.BUS;
+                        comparator = Comparator.comparing(Bus::getNumber);
+                    }
+                    case "2" -> {
+                        type = ModelType.USER;
+                        comparator = Comparator.comparing(User::getName);
+                    }
+                    case "3" -> {
+                        type = ModelType.STUDENT;
+                        comparator = Comparator.comparingInt(Student::getNumber);
+                    }
                 }
                 service.setModels(new ArrayList<>());
             }
@@ -152,6 +179,8 @@ public class UI_impl implements UI{
 
     private void sorting() {
         if (service.empty()) {
+            look();
+
             System.out.println("Выполнить сортировку элементов");
             System.out.println("1\tВыполнить быструю сортировку");
             System.out.println("2\tВыполнить натуральную сортировку (Доп)");
@@ -161,11 +190,13 @@ public class UI_impl implements UI{
 
             String operations = in.next();
             if (operations.trim().matches("1")) {
-                service.quickSorting();
+                service.quickSorting(comparator);
             }
             if (operations.trim().matches("2")) {
-                service.naturalSorting();
+                service.naturalSorting(comparator);
             }
+
+            look();
         } else System.out.println("Отсутствуют элементы, сортировка невозможна. Сначала загрузите элементы.");
 
     }

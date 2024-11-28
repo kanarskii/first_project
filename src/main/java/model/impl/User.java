@@ -22,7 +22,7 @@ public class User extends Model {
      * @param pass пароль
      * @param email почта
      */
-    public User(String name, String pass, String email) {
+    private User(String name, String pass, String email) {
         this.name = name;
         this.pass = pass;
         this.email = email;
@@ -42,7 +42,7 @@ public class User extends Model {
 
     @Override
     public String toString() {
-        return "Пользователь " + name;// + " пароль " + pass + " e-mail: " + email;
+        return "Пользователь " + name + " пароль " + pass + " e-mail: " + email;
     }
 
     @Override
