@@ -10,9 +10,11 @@ import static service.Sorting.natural;
 import static service.Sorting.quick;
 
 import static service.Search.binarySearch;
-
+/**
+ * Сервис класс сортировки, поиска
+ * @version 1.0
+ */
 public class Service {
-
     private  List<Model> models = new ArrayList<>();
     private boolean sorted = false;
 
@@ -38,17 +40,28 @@ public class Service {
         }
         sorted = false;
     }
-
+    /**
+     * Метод быстрой сортировки
+     * @see Sorting#quick(List, int, int, Comparator)
+     */
     public void quickSorting(Comparator  comparator) {
         quick(models, 0, (models.size() - 1), comparator);
         sorted = true;
     }
-
+    /**
+     * Метод дополнительной сортировки
+     * классы с четными значениями будут сортироваться в натуральном порядке, а с нечетными оставаться на своих местах
+     * @see Sorting#natural(List, Comparator)
+     */
     public <T> void naturalSorting(Comparator comparator) {
         natural(models, comparator);
         sorted = false;
     }
-
+    /**
+     * Метод бинарного поиска
+     * работает исключительно после быстрой сортировки
+     * @see Search#binarySearch(List, Object, Comparator)
+     */
     public  Model searchModel(Model model, Comparator  comparator) {
         var index = -1;
         index = binarySearch(models, model, comparator);

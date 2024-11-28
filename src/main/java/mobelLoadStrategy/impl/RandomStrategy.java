@@ -77,22 +77,25 @@ public class RandomStrategy implements LoadStrategy {
 
     private StringBuilder  randomDouble () {
         StringBuilder builder = new StringBuilder();
-        int lenght = r.nextInt(4)+1;
-        for (int j = 0; j < lenght; j++) {
-            builder.append(r.nextInt(9));
-        }
+        builder.append(randomNumbr (1));
         builder.append(".");
-        builder.append(r.nextInt(9));
-        builder.append(r.nextInt(9));
+        builder.append(randomNumbr (1));
         return builder;
     }
 
     private StringBuilder  randomInteger () {
         StringBuilder builder = new StringBuilder();
-        int lenght = r.nextInt(4)+1;
+            builder.append(randomNumbr(5));
+        return builder;
+    }
+
+    private StringBuilder randomNumbr (int i) {
+        int lenght = r.nextInt(i)+1;
+        StringBuilder builder = new StringBuilder();
         for (int j = 0; j < lenght; j++) {
             builder.append(r.nextInt(9));
         }
         return builder;
     }
+
 }

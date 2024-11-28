@@ -7,6 +7,7 @@ import model.ModelType;
 import model.impl.Bus;
 import model.impl.Student;
 import model.impl.User;
+import model.validate.ValidateMethods;
 import service.Service;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 /**
  * Класс реализация пользовательского интерфейса.
  * @autor Виктор Дробышевский
- * @version 0.9
+ * @version 1.0
  */
 
 public class UI_impl implements UI{
@@ -24,6 +25,7 @@ public class UI_impl implements UI{
     private final Service service = new Service();
     private final ServiceLoadModel loader = new ServiceLoadModel();
     private final Scanner in = new Scanner(System.in);
+    private final ValidateMethods validate = new ValidateMethods();
     private ModelType type;
     private Comparator comparator;
 
@@ -88,36 +90,39 @@ public class UI_impl implements UI{
 
                 switch (type) {
                     case BUS: {
-                        System.out.println("Для поиска автобуса необходимо указать его номер в соответствии с форматом:");
-                        System.out.println("формат согласно валидации");
+                        System.out.println("Для поиска автобуса необходимо указать его номер который может содержать:");
+                        System.out.println("Буквы и цифры, а также нижнее подчеркивание");
+                        searchModel = in.next();
+                        if (!validate.isWord(searchModel)) {
+                            System.out.println("Введено некорректное значение. Возврат в главное меню");
+                            return;
+                        }
+                        model = Bus.builder().number(searchModel).build();
                         break;
                     }
                     case USER: {
                         System.out.println("Для поиска пользователя необходимо указать его имя в соответствии с форматом:");
-                        System.out.println("формат согласно валидации");
+                        System.out.println("Буквы и цифры, а также нижнее подчеркивание");
+                        searchModel = in.next();
+                        if (!validate.isWord(searchModel)) {
+                            System.out.println("Введено некорректное значение. Возврат в главное меню");
+                            return;
+                        }
+                        model = User.builder().name(searchModel).build();
                         break;
                     }
-
                     case STUDENT: {
                         System.out.println("Для поиска студента необходимо указать его номер зачетной книжки в соответствии с форматом:");
-                        System.out.println("формат согласно валидации");
+                        System.out.println("Положительное число не более 10^8");
+                        searchModel = in.next();
+                        if (!validate.isInteger(searchModel)) {
+                            System.out.println("Введено некорректное значение. Возврат в главное меню");
+                            return;
+                        }
+                        model = Student.builder().number(Integer.parseInt(searchModel)).build();
                         break;
                     }
                 }
-
-                searchModel = in.next();
-
-            switch (type) {
-                case BUS -> {
-                    model = Bus.builder().number(searchModel).build();
-                }
-                case STUDENT -> {
-                    model = Student.builder().number(Integer.parseInt(searchModel)).build();
-                }
-                case USER -> {
-                    model = User.builder().name(searchModel).build();
-                }
-            }
 
                 search = service.searchModel(model, comparator);
 
@@ -179,14 +184,11 @@ public class UI_impl implements UI{
 
     private void sorting() {
         if (service.empty()) {
-            look();
-
             System.out.println("Выполнить сортировку элементов");
             System.out.println("1\tВыполнить быструю сортировку");
             System.out.println("2\tВыполнить натуральную сортировку (Доп)");
             System.out.println(".+\tНе выполнять");
             System.out.println("После выполнения натуральной сортировки коллекция считается не отсортированной!");
-
 
             String operations = in.next();
             if (operations.trim().matches("1")) {

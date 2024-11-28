@@ -54,12 +54,12 @@ public class ValidateMethods implements Validate{
 
     @Override
     public boolean isInteger(String str) {
-        return str.trim().matches("\\d+");
+        return str.trim().matches("\\d{1,8}");
     }
 
     @Override
     public boolean isDouble(String str) {
-        return str.trim().matches("\\d+.\\d{2}");
+        return str.trim().matches("\\d{1,2}[.]\\d{0,2}");
     }
 
     @Override
