@@ -32,22 +32,22 @@ public class ValidateMethods implements Validate{
     }
 
     @Override
-    public boolean busValidate(String classType, String number, String model, Integer mileage) {
-        if (stringValidate(classType) && stringValidate(number) && stringValidate(model) && intValidate(mileage)){
+    public boolean busValidate(String number, String model, Integer mileage) {
+        if (stringValidate(number) && stringValidate(model) && intValidate(mileage)){
         return true;}
         else return false;
     }
 
     @Override
-    public boolean userValidate(String classType, String name, String pass, String email) {
-        if (stringValidate(classType) && stringValidate(name) && stringValidate(pass) && stringValidate(email)){
+    public boolean userValidate(String name, String pass, String email) {
+        if (stringValidate(name) && stringValidate(pass) && stringValidate(email)){
             return true;}
         else return false;
     }
 
     @Override
-    public boolean studentValidate(String classType, String group, Double gpa, Integer number) {
-        if (stringValidate(classType) && stringValidate(group) && doubleValidate(gpa) && intValidate(number)){
+    public boolean studentValidate(String group, Double gpa, Integer number) {
+        if (stringValidate(group) && doubleValidate(gpa) && intValidate(number)){
             return true;}
         else return false;
     }

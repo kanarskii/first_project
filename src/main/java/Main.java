@@ -9,7 +9,7 @@ import ui.UI_impl;
  * @version 0.2
  */
 
-import model.impl.Model;
+import model.Model;
 import model.impl.Bus;
 import model.impl.Student;
 import model.impl.User;
@@ -31,10 +31,10 @@ public class Main {
         //ui.close();
         FileStrategy strategy = new FileStrategy();
 
-        //strategy.load(ModelType.BUS);
-        //System.out.println(strategy.fromFileBusList);
-        strategy.load(ModelType.USER);
-        System.out.println(strategy.fromFileUserList);
+        strategy.load(ModelType.BUS);
+        System.out.println(strategy.fromFileList);
+        //strategy.load(ModelType.USER);
+        //System.out.println(strategy.fromFileUserList);
 
 /*        Bus bus = Bus.builder().mileage(10).model("model").number("2058-qwe").build();
         System.out.println(bus);
