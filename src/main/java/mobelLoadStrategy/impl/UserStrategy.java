@@ -52,7 +52,7 @@ public class UserStrategy implements LoadStrategy {
                         while (true) {
                             System.out.println("Введите email");
                             String email = in.next();
-                            if (validate.isWord(email)) {
+                            if (validate.isEmail(email)) {
                                 sb.append(email).append(";");
                                 break;
                             }

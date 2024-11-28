@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+
 /**
  * Класс реализация пользовательского интерфейса.
  * @autor Виктор Дробышевский
