@@ -38,7 +38,7 @@ public class ServiceLoadModel {
         switch (model) {
             case BUS -> {
                 for (String line:list)
-                { String[] split =line.split(";");
+                {String[] split =line.split(";");
                     if (validate.isBus(split[0], split[1], split[2])) {
                         models.add(
                             Bus.builder()

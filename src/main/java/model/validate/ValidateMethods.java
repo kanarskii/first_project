@@ -64,7 +64,7 @@ public class ValidateMethods implements Validate{
 
     @Override
     public boolean isEmail(String str) {
-        return str.trim().matches("\\w+[.-]\\w+@\\w+[.][A-Za-z0-9]{2,3}");
+        return str.trim().matches("\\w+[.-]?\\w+@\\w+[.][A-Za-z0-9]{2,3}");
     }
 
     @Override
