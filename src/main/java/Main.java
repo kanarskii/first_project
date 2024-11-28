@@ -1,18 +1,13 @@
 import ui.UI;
 import ui.UI_impl;
 
-/**
- * Командный тестовый проект
- * @autor Евгений Канарский, Виктор Дробышевский, Илья Баренков, Игорь Абзалов, Игорь Кашолкин
- * @version 0.9
- */
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-       UI ui = new UI_impl();
+        UI ui = new UI_impl();
 
         ui.runner();
         ui.close();
-
     }
 }
