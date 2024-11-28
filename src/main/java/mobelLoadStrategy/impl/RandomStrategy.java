@@ -29,24 +29,45 @@ public class RandomStrategy implements LoadStrategy {
         switch (type){
             case USER -> {
                 for (int i = 1; i<=iteration; i++ )
-                    loadString.add(randomString() + ";" +randomString() + ";" + randomString());
+                    loadString.add(randomWord() + ";" +randomWord() + ";" + randomEmail());
             }
             case STUDENT -> {
                 for (int i = 1; i<=iteration; i++ )
-                    loadString.add(randomString() + ";" + randomDouble() + ";" + randomInteger());
-
+                    loadString.add(randomWord() + ";" + randomDouble() + ";" + randomInteger());
             }
             case BUS -> {
                 for (int i = 1; i <= iteration; i++)
-                    loadString.add(randomString() + ";" + randomString() + ";" + randomInteger());
+                    loadString.add(randomWord() + ";" + randomWord() + ";" + randomInteger());
             }
         }
         return loadString;
     }
 
-    private StringBuilder  randomString () {
+    private StringBuilder  randomWord () {
         StringBuilder builder = new StringBuilder();
         int lenght = r.nextInt(6)+4;
+        for (int j = 0; j < lenght; j++) {
+            char code = (char) (r.nextInt(25) + 97);
+            builder.append(Character.toString(code));
+        }
+        return builder;
+    }
+
+    private StringBuilder  randomEmail() {
+        StringBuilder builder = new StringBuilder();
+        int lenght = r.nextInt(6)+4;
+        for (int j = 0; j < lenght; j++) {
+            char code = (char) (r.nextInt(25) + 97);
+            builder.append(Character.toString(code));
+        }
+        builder.append("@");
+        lenght = r.nextInt(6)+4;
+        for (int j = 0; j < lenght; j++) {
+            char code = (char) (r.nextInt(25) + 97);
+            builder.append(Character.toString(code));
+        }
+        builder.append(".");
+        lenght = r.nextInt(1)+2;
         for (int j = 0; j < lenght; j++) {
             char code = (char) (r.nextInt(25) + 97);
             builder.append(Character.toString(code));

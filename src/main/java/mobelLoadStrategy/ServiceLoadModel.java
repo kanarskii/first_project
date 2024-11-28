@@ -8,11 +8,14 @@ import model.ModelType;
 import model.impl.Bus;
 import model.impl.Student;
 import model.impl.User;
+import model.validate.ValidateMethods;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceLoadModel {
+
+    ValidateMethods validate = new ValidateMethods();
 
     public List<Model> loadModel (StrategyType strategy, ModelType type){
         LoadStrategy load = null;
@@ -35,38 +38,41 @@ public class ServiceLoadModel {
         switch (model) {
             case BUS -> {
                 for (String line:list)
-                { String[] split =line.split(";");
-                    models.add(
+                {String[] split =line.split(";");
+                    if (validate.isBus(split[0], split[1], split[2])) {
+                        models.add(
                             Bus.builder()
                                     .number(split[0])
                                     .model(split[1])
                                     .mileage(Integer.parseInt(split[2]))
                                     .build()
-                    );
+                    );}
                 }
             }
             case STUDENT -> {
                 for (String line:list)
                 { String[] split =line.split(";");
-                    models.add(
+                    if (validate.isStudent(split[0], split[1], split[2])){
+                        models.add(
                             Student.builder()
                                     .group(split[0])
                                     .gpa(Double.parseDouble(split[1]))
                                     .number(Integer.parseInt(split[2]))
                                     .build()
-                    );
+                    );}
                 }
             }
             case USER -> {
                 for (String line:list)
                 { String[] split =line.split(";");
-                    models.add(
+                    if (validate.isUser(split[0], split[1], split[2])){
+                        models.add(
                             User.builder()
                                     .name(split[0])
                                     .pass(split[1])
                                     .email(split[2])
                                     .build()
-                    );
+                    );}
                 }
             }
         }
