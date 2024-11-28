@@ -22,7 +22,7 @@ public class RandomStrategy implements LoadStrategy {
         if (count.trim().matches("\\d+")) {
             iteration = Integer.parseInt(count);
         } else {
-            iteration = r.nextInt(1000);
+            iteration = r.nextInt(5);
             System.out.println("Введено некорректное значение, коллекция будет содержать " + iteration + " элементов");
         }
 

@@ -40,14 +40,13 @@ public class UI_impl implements UI{
         while (work) {
             menu();
             operations = in.next();
-            if (operations.trim().matches("[1-6]")) {
+            if (operations.trim().matches("[1-5]")) {
                 switch (operations) {
                     case "1" -> load();
                     case "2" -> look();
                     case "3" -> sorting();
                     case "4" -> search();
-                    case "5" -> modelType();
-                    case "6" -> work = false;
+                    case "5" -> work = false;
                 }
             } else
                 System.out.println("Введена неподдерживаемая команда.");
@@ -142,8 +141,7 @@ public class UI_impl implements UI{
         System.out.println("2\tДля просмотра загруженной коллекции");
         System.out.println("3\tДля выполнения сортировки");
         System.out.println("4\tДля поиска элемента");
-        System.out.println("5\tДля изменения типа элементов");
-        System.out.println("6\tВыход");
+        System.out.println("5\tВыход");
     }
 
     private void look() {
